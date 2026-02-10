@@ -16,12 +16,11 @@ def parse_ids_log_line(line: str) -> dict:
     tcp_flag = parts[5]
     attack_type = parts[6]
 
-    # Parse timestamp
     timestamp = datetime.strptime(
         timestamp_str, "%Y-%m-%d %H:%M:%S,%f"
     ).isoformat()
 
-    # Parse connection: src_ip:port --> dst_ip:port
+    #connection: src_ip:port --> dst_ip:port
     src, dst = connection.split(" --> ")
 
     source_ip, source_port = src.split(":")
@@ -36,3 +35,26 @@ def parse_ids_log_line(line: str) -> dict:
         "destination_ip": destination_ip,
         "attack_type": attack_type,
     }
+
+def enrich_with_threat_intel(event: dict, threat_feed: dict) -> dict:
+    """
+    Enrich IDS event with IPSum threat intelligence.
+    """
+
+    source_ip = event["source_ip"]
+    destination_ip = event["destination_ip"]
+
+    if source_ip in threat_feed:
+        event["is_malicious"] = True
+        event["confidence"] = threat_feed[source_ip]
+        return event
+
+    if destination_ip in threat_feed:
+        event["is_malicious"] = True
+        event["confidence"] = threat_feed[destination_ip]
+        return event
+
+    event["is_malicious"] = False
+    event["confidence"] = None
+    return event
+
