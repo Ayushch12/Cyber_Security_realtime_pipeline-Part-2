@@ -10,7 +10,7 @@ from threat_intel.loader import load_ipsum_feed
 
 app = FastAPI(title="IDS Ingestion API")
 
-# Load threat intel once at startup
+# All the Load threat intel is here
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 IPSUM_PATH = PROJECT_ROOT / "threat_intel" / "data" / "ipsum.txt"
 

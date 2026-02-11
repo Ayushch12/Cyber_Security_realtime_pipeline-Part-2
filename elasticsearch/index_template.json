@@ -1,0 +1,18 @@
+{
+  "index_patterns": ["ids-events*"],
+  "template": {
+    "mappings": {
+      "properties": {
+        "@timestamp": { "type": "date" },
+        "log_type": { "type": "keyword" },
+        "severity": { "type": "keyword" },
+        "protocol": { "type": "keyword" },
+        "source_ip": { "type": "ip" },
+        "destination_ip": { "type": "ip" },
+        "attack_type": { "type": "keyword" },
+        "is_malicious": { "type": "boolean" },
+        "confidence": { "type": "integer" }
+      }
+    }
+  }
+}

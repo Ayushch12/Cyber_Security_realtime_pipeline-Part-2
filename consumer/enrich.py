@@ -1,6 +1,5 @@
 from datetime import datetime
 
-
 def parse_ids_log_line(line: str) -> dict:
     """
     Parse a single IDS log line into a structured dictionary.
@@ -20,7 +19,7 @@ def parse_ids_log_line(line: str) -> dict:
         timestamp_str, "%Y-%m-%d %H:%M:%S,%f"
     ).isoformat()
 
-    #connection: src_ip:port --> dst_ip:port
+    #connection from src_ip:port to dst_ip:port
     src, dst = connection.split(" --> ")
 
     source_ip, source_port = src.split(":")
