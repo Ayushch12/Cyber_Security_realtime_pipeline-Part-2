@@ -337,7 +337,9 @@ I wanted to challenge myself and learn something new instead of staying only wit
 ## Question
 
 Why did you choose to use only IDS logs from the Security Log Generator instead of also using web access logs and endpoint logs?
-Answer :
+
+## Answer :
+
 I chose to focus on IDS logs because the project requirement clearly states that the system must “enrich security logs by identifying connections to/from malicious IPs.
 IDS logs are the most appropriate source for this objective because they contain clear source and destination IP addresses. This makes it straightforward to detect and enrich malicious network connections.
 Web access logs and endpoint logs also provide useful information, but they are less directly aligned with IP-based connection analysis. To keep the architecture focused and aligned with the core objective, I intentionally started with IDS logs.
