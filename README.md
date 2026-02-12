@@ -144,7 +144,7 @@ http://localhost:3000
 ```
 Default login credentials:
 ```
-admin / admin
+User name: admin / Password: admin
 ```
 ## Configure Elasticsearch Data Source in Grafana
 
@@ -341,8 +341,11 @@ Why did you choose to use only IDS logs from the Security Log Generator instead 
 ## Answer :
 
 I chose to focus on IDS logs because the project requirement clearly states that the system must “enrich security logs by identifying connections to/from malicious IPs.
+
 IDS logs are the most appropriate source for this objective because they contain clear source and destination IP addresses. This makes it straightforward to detect and enrich malicious network connections.
+
 Web access logs and endpoint logs also provide useful information, but they are less directly aligned with IP-based connection analysis. To keep the architecture focused and aligned with the core objective, I intentionally started with IDS logs.
+
 Since the pipeline is modular and Kafka-based, additional log types (such as web or endpoint logs) can easily be integrated later without changing the overall design.
 
 
