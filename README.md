@@ -333,3 +333,17 @@ That’s why I decided to switch to Elasticsearch. The only new technology for m
 I learned the basics from official documentation, Medium, AI,and by discussing with people who had experience with it. I’m not perfect in Elasticsearch yet, but through this project I understood the core concepts and how to implement it properly.
 
 I wanted to challenge myself and learn something new instead of staying only with tools I already know. 
+
+## Question
+
+Why did you choose to use only IDS logs from the Security Log Generator instead of also using web access logs and endpoint logs?
+Answer :
+I chose to focus on IDS logs because the project requirement clearly states that the system must “enrich security logs by identifying connections to/from malicious IPs.
+IDS logs are the most appropriate source for this objective because they contain clear source and destination IP addresses. This makes it straightforward to detect and enrich malicious network connections.
+Web access logs and endpoint logs also provide useful information, but they are less directly aligned with IP-based connection analysis. To keep the architecture focused and aligned with the core objective, I intentionally started with IDS logs.
+Since the pipeline is modular and Kafka-based, additional log types (such as web or endpoint logs) can easily be integrated later without changing the overall design.
+
+
+                                                                             Merci ...
+
+
