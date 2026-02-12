@@ -22,7 +22,6 @@ The focus of this project is clarity, correctness, and realistic design choices,
 ---
 
 ##  Architecture
----
 <img width="2459" height="1376" alt="SOC CYNA Arch" src="https://github.com/user-attachments/assets/79f154d9-6f94-475e-b5ab-040284205f90" />
 ---
 
@@ -36,8 +35,6 @@ Instead of directly pushing logs into a database, events flow through a streamin
 - Scalability  
 - Separation of concerns between system components  
 
----
-
 ## 2. Apache Kafka as the Streaming Layer
 
 Apache Kafka is used as the central event streaming platform.
@@ -49,8 +46,6 @@ It provides:
 - Scalability through consumer groups  
 
 Kafka ensures that IDS events are not lost, even if downstream systems temporarily fail. It also allows the system to scale horizontally in the future.
-
----
 
 ## 3. Elasticsearch for Storage and Analytics
 
@@ -64,21 +59,16 @@ It was chosen because it:
 
 This makes it ideal for storing enriched IDS events and running analytical queries on security data.
 
----
-
 ## 4. Grafana for Visualization
-
 Grafana is used to build the SOC dashboard layer.
 It allows:
 
-- Real-time data visualization  
-- Aggregation-based panels  
+- Real time data visualization  
+- Aggregation based panels  
 - Clear representation of security trends  
 - Operational monitoring views  
 
 This transforms raw security events into actionable insights.
-
----
 
 ## 5. Threat Intelligence Enrichment
 
@@ -91,8 +81,6 @@ Enrichment enables:
 
 This makes the pipeline more aligned with real-world SOC practices.
 
----
-
 ## 6. Containerized Deployment
 
 All core services (Kafka, Elasticsearch, Grafana) run in Docker containers.
@@ -104,8 +92,6 @@ This provides:
 
 The project can be launched quickly using Docker Compose.
 
----
-
 # Why This Design Matters
 
 This architecture reflects how real-world security monitoring systems are structured:
@@ -116,10 +102,7 @@ This architecture reflects how real-world security monitoring systems are struct
 
 The system is modular, scalable, and designed with production-style principles in mind.
 
----
-
 # Running the Project
-
 ---
 ## 1. Start Infrastructure
 Navigate to the docker directory and start all services:
@@ -128,14 +111,12 @@ Navigate to the docker directory and start all services:
 cd docker
 docker compose up -d
 ```
-
 This will start:
 - Kafka
 - Zookeeper
 - Elasticsearch
 - Grafana
 - Other required services
----
 ## 2. Start Kafka Consumer
 Run the Kafka consumer to begin processing incoming events:
 
@@ -146,20 +127,16 @@ The consumer will:
 - Read messages from Kafka
 - Perform enrichment
 - Send events to Elasticsearch
----
 ## 3. Replay IDS Logs
 Replay the IDS logs to simulate real-time traffic:
-
 ```bash
 python -m replay.replay_ids_log
 ```
-
 This will:
 
 - Read logs from sample_logs/ids.log
 - Send events to Kafka
 - Trigger the full processing pipeline
----
 ## 4. Open Grafana
 Open Grafana in your browser:
 ```
@@ -169,7 +146,6 @@ Default login credentials:
 ```
 admin / admin
 ```
----
 ## Configure Elasticsearch Data Source in Grafana
 
 Add a new Elasticsearch data source with the following settings:
@@ -185,8 +161,6 @@ Time field:
 ```
 @timestamp
 ```
----
-
 ## Tech Stack
 
 - **Language:**   Python 3.10
@@ -197,12 +171,8 @@ Time field:
 - **Containerization:** Docker/Docker Compose
 - **Log Generation:** Security Log Generator  
 - **Threat Intelligence:** IPSUM
----
-
 # Data Pipeline
 This section describes how security events flow through the system, from raw IDS logs to indexed documents in Elasticsearch.
-
----
 
 ## Step-by-Step Data Flow
 
@@ -245,16 +215,12 @@ Example enriched event:
 }
 ```
 
----
-
 ### 3. Kafka Streaming
 Events are sent to the Kafka topic:
 ```
 ids-raw-logs
 ```
 This simulates real-time SOC ingestion and allows scalable event streaming.
-
----
 
 ### 4. Kafka Consumer Processing
 
@@ -263,8 +229,6 @@ The Kafka consumer:
 - Performs enrichment (if required)
 - Processes and formats the event
 - Indexes the event into Elasticsearch
-
----
 
 ### 5. Elasticsearch Storage
 
@@ -282,60 +246,43 @@ The index uses structured mappings with the following field types:
 
 This enables efficient querying, filtering, aggregation, and threat hunting.
 
----
----
-
 # SOC Dashboard
 ### Total IDS Events Over Time
 
 - Displays the volume of IDS events over a selected time range.  
 - This helps detect traffic spikes or unusual activity.
 
----
-
 ### Malicious Events Count
 
 - Shows how many events involve IPs flagged in the threat intelligence feed.
-
----
 
 ### Top Malicious Source IPs
 
 - Identifies which source IPs are most frequently marked as malicious.
 
----
-
 ### Attack Type Distribution
 
 - Breaks down events by attack type (e.g., Port Scanning, DoS, Malware).
-
----
 
 ### Severity Breakdown
 
 - Shows the distribution of severity levels (low, medium, high, critical).
 
----
-
 The dashboard simulates what a Security Operations Center (SOC) analyst would use to monitor threats in real time.
-
----
 
 # What Was Achieved
 
 This project successfully demonstrates:
 
-- Real-time ingestion of IDS logs  
-- Kafka-based streaming architecture  
+- Real time ingestion of IDS logs  
+- Kafka based streaming architecture  
 - Threat intelligence enrichment using IPSum  
 - Structured indexing in Elasticsearch  
-- Real-time visualization in Grafana  
+- Real time visualization in Grafana  
 - Dockerized infrastructure setup  
 - Modular and maintainable Python codebase  
 
 The pipeline processes security events end-to-end, from raw logs to visual insights.
-
----
 
 # What Insights the Dashboard Provides
 
@@ -349,8 +296,6 @@ The dashboard allows analysts to:
 
 It transforms raw IDS logs into actionable security intelligence.
 
----
-
 # What Is Not Done Yet(This will be done during Stage in Cyna 😃)
 
 The current implementation focuses on core functionality.
@@ -362,7 +307,6 @@ Possible improvements include:
 - Kafka scaling with multiple partitions  
 - Production-grade monitoring and logging  
 - CI/CD pipeline for deployment automation  
----
 ## Why Did I Change the Architecture?
 ### Question:
 Before I used batch processing and DuckDB, now I am using Kafka and Elasticsearch, why?
@@ -376,7 +320,6 @@ I redesigned the project into a real-time streaming pipeline using Kafka, Elasti
 The first version helped validate the core logic  ingestion, enrichment, and analysis but it was batch-based and not real-time. 
 In real SOC environments, security monitoring is continuous and event-driven. By moving to a streaming architecture, the system became more realistic, scalable, and aligned with production-level security systems.
 
----
 ## Challenges Faced
 
 ## Why I Chose This Stack
@@ -389,6 +332,4 @@ That’s why I decided to switch to Elasticsearch. The only new technology for m
 
 I learned the basics from official documentation, Medium, AI,and by discussing with people who had experience with it. I’m not perfect in Elasticsearch yet, but through this project I understood the core concepts and how to implement it properly.
 
-I wanted to challenge myself and learn something new instead of staying only with tools I already know.
-
----
+I wanted to challenge myself and learn something new instead of staying only with tools I already know. 
