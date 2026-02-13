@@ -2,24 +2,24 @@ from pathlib import Path
 import json
 import time
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from kafka import KafkaProducer
 import logging
 
 from consumer.enrich import parse_ids_log_line, enrich_with_threat_intel
 from threat_intel.loader import load_ipsum_feed
 from core.logging_config import setup_logging
-from datetime import datetime, timezone
 
 
 KAFKA_TOPIC = "ids-raw-logs"
 KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
 
-setup_logging()
-logger = logging.getLogger("ids-producer")
-
 
 def tail_ids_log(log_path: Path, ipsum_path: Path):
+
+    setup_logging()
+    logger = logging.getLogger("ids-producer")
+
     threat_feed = load_ipsum_feed(ipsum_path)
 
     if not log_path.exists():
@@ -34,6 +34,7 @@ def tail_ids_log(log_path: Path, ipsum_path: Path):
     logger.info("Tailing IDS log. Waiting for new events...")
 
     last_position = 0
+    total_sent = 0
 
     while True:
         try:
@@ -61,13 +62,10 @@ def tail_ids_log(log_path: Path, ipsum_path: Path):
 
                             producer.send(KAFKA_TOPIC, value=event)
 
-                            logger.info(
-                                "Event sent | src=%s dst=%s malicious=%s confidence=%s",
-                                event["source_ip"],
-                                event["destination_ip"],
-                                event["is_malicious"],
-                                event["confidence"],
-                            )
+                            total_sent += 1
+
+                            if total_sent % 50 == 0:
+                                logger.info("Sent %s events to Kafka", total_sent)
 
                         except Exception as e:
                             logger.error("Error processing line: %s", str(e))
@@ -88,3 +86,5 @@ if __name__ == "__main__":
         log_path=project_root / "sample_logs" / "ids.log",
         ipsum_path=project_root / "threat_intel" / "data" / "ipsum.txt",
     )
+
+
