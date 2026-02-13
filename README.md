@@ -146,6 +146,8 @@ Default login credentials:
 ```
 User name: admin / Password: admin
 ```
+Folder name to open Dashboard :  New Dashboard 
+```
 ## Configure Elasticsearch Data Source in Grafana
 
 Add a new Elasticsearch data source with the following settings:
@@ -347,6 +349,12 @@ IDS logs are the most appropriate source for this objective because they contain
 Web access logs and endpoint logs also provide useful information, but they are less directly aligned with IP-based connection analysis. To keep the architecture focused and aligned with the core objective, I intentionally started with IDS logs.
 
 Since the pipeline is modular and Kafka-based, additional log types (such as web or endpoint logs) can easily be integrated later without changing the overall design.
+
+
+## Dashboard Grafana 
+
+<img width="1324" height="612" alt="image" src="https://github.com/user-attachments/assets/9e621d92-d142-4231-ab2a-02ccdedd6334" />
+
 
 
                                                                              Merci ...
