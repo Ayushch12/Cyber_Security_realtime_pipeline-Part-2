@@ -161,8 +161,10 @@ ids-events
 ```
 Time field:
 ```
+``` 
 @timestamp
 ```
+
 ## Tech Stack
 
 - **Language:**   Python 3.10
@@ -173,6 +175,7 @@ Time field:
 - **Containerization:** Docker/Docker Compose
 - **Log Generation:** Security Log Generator  
 - **Threat Intelligence:** IPSUM
+  
 # Data Pipeline
 This section describes how security events flow through the system, from raw IDS logs to indexed documents in Elasticsearch.
 
@@ -354,6 +357,12 @@ Since the pipeline is modular and Kafka-based, additional log types (such as web
 ## Dashboard Grafana 
 
 <img width="1324" height="612" alt="image" src="https://github.com/user-attachments/assets/9e621d92-d142-4231-ab2a-02ccdedd6334" />
+
+I tried with the some of the malicious logs, to verify wheather its working or not.
+
+In this system, an event is marked as malicious only if the source IP or destination IP exists in the IPSUM dataset. If there is no match, the event is treated as benign.
+
+To confirm that the detection and enrichment logic works correctly, I tested the pipeline by manually adding a known malicious IP from the IPSUM dataset into the IDS logs.
 
 
 
