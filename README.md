@@ -108,7 +108,6 @@ The system is modular, scalable, and designed with production-style principles i
 Navigate to the docker directory and start all services:
 
 ```bash
-cd docker
 docker compose up -d
 ```
 This will start:
@@ -146,7 +145,8 @@ Default login credentials:
 ```
 User name: admin / Password: admin
 ```
-Folder name to open Dashboard :  New Dashboard 
+```
+Click on New Dashboard Folder for the Granafa Dashboard.
 ```
 ## Configure Elasticsearch Data Source in Grafana
 
