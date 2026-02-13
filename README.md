@@ -116,7 +116,7 @@ This will start:
 - Elasticsearch
 - Grafana
 - Other required services
-## 2. Start Kafka Consumer
+## 2. Start Kafka : Consumer
 Run the Kafka consumer to begin processing incoming events:
 
 ```bash
@@ -126,7 +126,7 @@ The consumer will:
 - Read messages from Kafka
 - Perform enrichment
 - Send events to Elasticsearch
-## 3. Replay IDS Logs
+## 3. Replay IDS Logs : Producer
 Replay the IDS logs to simulate real-time traffic:
 ```bash
 python -m replay.replay_ids_log
