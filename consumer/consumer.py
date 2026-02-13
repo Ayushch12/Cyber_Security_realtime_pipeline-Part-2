@@ -1,3 +1,4 @@
+
 import json
 from kafka import KafkaConsumer
 from elasticsearch import Elasticsearch
@@ -18,7 +19,7 @@ def main():
          api_version=(2, 5, 0),
 
     )
-
+    # es = Elasticsearch(ELASTICSEARCH_URL)
     es = Elasticsearch(ELASTICSEARCH_URL)
 
     print("Kafka consumer started. Waiting for IDS events...")

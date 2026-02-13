@@ -4,7 +4,6 @@ def parse_ids_log_line(line: str) -> dict:
     """
     Parse a single IDS log line into a structured dictionary.
     """
-
     parts = line.strip().split(" - ")
 
     timestamp_str = parts[0]

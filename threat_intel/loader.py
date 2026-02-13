@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 def load_ipsum_feed(filepath: str) -> dict:
     """
     Load IPSum threat intelligence feed into memory.

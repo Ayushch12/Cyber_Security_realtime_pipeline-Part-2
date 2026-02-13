@@ -1,4 +1,4 @@
-version: "3.8"
+# version: "3.8"
 
 services:
   zookeeper:
@@ -34,12 +34,21 @@ services:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
       - "9200:9200"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
   grafana:
     image: grafana/grafana:10.2.0
     ports:
       - "3000:3000"
     depends_on:
       - elasticsearch
+    volumes:
+      - grafana-data:/var/lib/grafana
+      # - grafana-storage:/var/lib/grafana
+
+volumes:
+    es-data:
+    grafana-data:
 
 
 

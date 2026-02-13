@@ -198,5 +198,5 @@
 2026-02-04 13:08:40,913 - ids_logger_1 - low_severity - HTTPS - 100.191.249.45:9976 --> 114.208.29.15:443 - ACK - Denial of service (DoS)
 2026-02-04 13:08:41,024 - ids_logger_1 - low_severity - TCP - 76.78.253.51:61282 --> 36.34.54.40:54284 - FIN - PING NMAP
 2026-02-04 13:08:41,135 - ids_logger_1 - high_severity - ICMP - 18.22.236.233:17636 --> 82.149.17.82:1 - URG - PING NMAP
-
-
+2026-02-04 13:08:41,135 - ids_logger_1 - high_severity - ICMP - 18.22.236.233:17636 --> 82.149.17.82:1 - URG - PING NMAP
+2026-02-13 00:55:00,000 - ids_logger_1 - critical_severity - TCP - 61.245.11.87:54321 --> 192.168.1.10:80 - SYN - Denial of service (DoS)
