@@ -108,7 +108,6 @@ The system is modular, scalable, and designed with production-style principles i
 Navigate to the docker directory and start all services:
 
 ```bash
-cd docker
 docker compose up -d
 ```
 This will start:
@@ -117,7 +116,7 @@ This will start:
 - Elasticsearch
 - Grafana
 - Other required services
-## 2. Start Kafka Consumer
+## 2. Start Kafka : Consumer
 Run the Kafka consumer to begin processing incoming events:
 
 ```bash
@@ -127,7 +126,7 @@ The consumer will:
 - Read messages from Kafka
 - Perform enrichment
 - Send events to Elasticsearch
-## 3. Replay IDS Logs
+## 3. Replay IDS Logs : Producer
 Replay the IDS logs to simulate real-time traffic:
 ```bash
 python -m replay.replay_ids_log
@@ -146,7 +145,8 @@ Default login credentials:
 ```
 User name: admin / Password: admin
 ```
-Folder name to open Dashboard :  New Dashboard 
+```
+Click on New Dashboard Folder for the Granafa Dashboard.
 ```
 ## Configure Elasticsearch Data Source in Grafana
 
@@ -160,9 +160,10 @@ Index:
 ids-events
 ```
 Time field:
-```
+``` 
 @timestamp
 ```
+
 ## Tech Stack
 
 - **Language:**   Python 3.10
@@ -173,6 +174,7 @@ Time field:
 - **Containerization:** Docker/Docker Compose
 - **Log Generation:** Security Log Generator  
 - **Threat Intelligence:** IPSUM
+  
 # Data Pipeline
 This section describes how security events flow through the system, from raw IDS logs to indexed documents in Elasticsearch.
 
@@ -354,6 +356,12 @@ Since the pipeline is modular and Kafka-based, additional log types (such as web
 ## Dashboard Grafana 
 
 <img width="1324" height="612" alt="image" src="https://github.com/user-attachments/assets/9e621d92-d142-4231-ab2a-02ccdedd6334" />
+
+I tried with the some of the malicious logs, to verify wheather its working or not.
+
+In this system, an event is marked as malicious only if the source IP or destination IP exists in the IPSUM dataset. If there is no match, the event is treated as benign.
+
+To confirm that the detection and enrichment logic works correctly, I tested the pipeline by manually adding a known malicious IP from the IPSUM dataset into the IDS logs.
 
 
 
