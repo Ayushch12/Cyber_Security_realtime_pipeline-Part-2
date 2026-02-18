@@ -17,7 +17,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
@@ -45,6 +45,30 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       # - grafana-storage:/var/lib/grafana
+
+  consumer:
+    build: .
+    command: python -m consumer.consumer
+    depends_on:
+      - kafka
+      - elasticsearch
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      LOG_LEVEL: INFO
+    restart: on-failure
+
+  replay:
+    build: .
+    command: python -m replay.replay_ids_log
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      LOG_PATH: sample_logs/ids.log
+      LOG_LEVEL: INFO
+    restart: on-failure
+
 
 volumes:
     es-data:
