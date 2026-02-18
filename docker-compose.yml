@@ -53,9 +53,7 @@ services:
       - kafka
       - elasticsearch
     environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      ELASTICSEARCH_URL: http://elasticsearch:9200
-      LOG_LEVEL: INFO
+    - .env
     restart: on-failure
 
   replay:
@@ -64,11 +62,8 @@ services:
     depends_on:
       - kafka
     environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      LOG_PATH: sample_logs/ids.log
-      LOG_LEVEL: INFO
+    - .env
     restart: on-failure
-
 
 volumes:
     es-data:

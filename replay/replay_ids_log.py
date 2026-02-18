@@ -12,9 +12,13 @@ from threat_intel.loader import load_ipsum_feed
 from core.logging_config import setup_logging
 
 
-KAFKA_TOPIC = "ids-raw-logs"
-# KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
+# KAFKA_TOPIC = "ids-raw-logs"
+# # KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
+# KAFKA_BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092")
+KAFKA_TOPIC = os.getenv("IDS_TOPIC", "ids-raw-logs")
 KAFKA_BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092")
+LOG_PATH = os.getenv("LOG_PATH", "sample_logs/ids.log")
+IPSUM_PATH = os.getenv("IPSUM_PATH", "threat_intel/data/ipsum.txt")
 
 
 def tail_ids_log(log_path: Path, ipsum_path: Path):
@@ -84,11 +88,16 @@ def tail_ids_log(log_path: Path, ipsum_path: Path):
 if __name__ == "__main__":
     project_root = Path(__file__).resolve().parents[1]
 
-LOG_PATH = os.getenv("LOG_PATH", "sample_logs/ids.log")
+# LOG_PATH = os.getenv("LOG_PATH", "sample_logs/ids.log")
+
+# tail_ids_log(
+#     log_path=project_root / LOG_PATH,
+#     ipsum_path=project_root / "threat_intel" / "data" / "ipsum.txt",
+# )
 
 tail_ids_log(
     log_path=project_root / LOG_PATH,
-    ipsum_path=project_root / "threat_intel" / "data" / "ipsum.txt",
+    ipsum_path=project_root / IPSUM_PATH,
 )
 
 
