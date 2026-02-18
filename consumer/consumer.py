@@ -27,7 +27,7 @@ def main():
         auto_offset_reset="latest",
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
         group_id="ids-group",
-         api_version=(2, 5, 0),
+        #  api_version=(2, 5, 0),
 
     )
     # es = Elasticsearch(ELASTICSEARCH_URL)
