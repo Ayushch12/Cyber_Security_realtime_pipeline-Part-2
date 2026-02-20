@@ -355,7 +355,7 @@ Since the pipeline is modular and Kafka-based, additional log types (such as web
 
 ## Dashboard Elastic
 
-<img width="1375" height="636" alt="image" src="https://github.com/user-attachments/assets/4efef121-519d-4d75-9fd7-0c27212d365b" />
+![Kibana Dashboard](https://github.com/user-attachments/assets/cd476de3-6c12-4610-91b0-383b4a39bc42)
 
 ## Dashboard Grafana
 
