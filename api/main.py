@@ -21,7 +21,6 @@ producer = KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode("utf-8")
 )
 
-
 @app.post("/ingest/ids")
 def ingest_ids_log(request: IDSLogRequest):
     event = parse_ids_log_line(request.log_line)

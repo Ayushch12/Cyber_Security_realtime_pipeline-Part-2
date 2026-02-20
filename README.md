@@ -31,19 +31,19 @@ The focus of this project is clarity, correctness, and realistic design choices,
 
 This project is built using an event driven architecture to simulate how modern Security Operations Centers (SOCs) process logs in real time.
 Instead of directly pushing logs into a database, events flow through a streaming pipeline. This design improves:
-- Reliability  
-- Scalability  
-- Separation of concerns between system components  
+- Reliability
+- Scalability
+- Separation of concerns between system components
 
 ## 2. Apache Kafka as the Streaming Layer
 
 Apache Kafka is used as the central event streaming platform.
 It provides:
 
-- Reliable message buffering  
-- Decoupling between producers and consumers  
-- Fault tolerance  
-- Scalability through consumer groups  
+- Reliable message buffering
+- Decoupling between producers and consumers
+- Fault tolerance
+- Scalability through consumer groups
 
 Kafka ensures that IDS events are not lost, even if downstream systems temporarily fail. It also allows the system to scale horizontally in the future.
 
@@ -52,10 +52,10 @@ Kafka ensures that IDS events are not lost, even if downstream systems temporari
 Elasticsearch is used as the storage and analytics engine.
 It was chosen because it:
 
-- Indexes logs in near real time  
-- Supports fast full-text search  
-- Provides powerful aggregation capabilities  
-- Is widely used in security and SIEM platforms  
+- Indexes logs in near real time
+- Supports fast full-text search
+- Provides powerful aggregation capabilities
+- Is widely used in security and SIEM platforms
 
 This makes it ideal for storing enriched IDS events and running analytical queries on security data.
 
@@ -63,10 +63,10 @@ This makes it ideal for storing enriched IDS events and running analytical queri
 Grafana is used to build the SOC dashboard layer.
 It allows:
 
-- Real time data visualization  
-- Aggregation based panels  
-- Clear representation of security trends  
-- Operational monitoring views  
+- Real time data visualization
+- Aggregation based panels
+- Clear representation of security trends
+- Operational monitoring views
 
 This transforms raw security events into actionable insights.
 
@@ -75,9 +75,9 @@ This transforms raw security events into actionable insights.
 Raw IDS logs alone provide limited context.
 This system enriches events using an external threat intelligence feed (IPSum).
 Enrichment enables:
-- Identification of malicious IP addresses  
-- Context-aware analysis  
-- Enhanced visibility into attack behavior  
+- Identification of malicious IP addresses
+- Context-aware analysis
+- Enhanced visibility into attack behavior
 
 This makes the pipeline more aligned with real-world SOC practices.
 
@@ -85,20 +85,20 @@ This makes the pipeline more aligned with real-world SOC practices.
 
 All core services (Kafka, Elasticsearch, Grafana) run in Docker containers.
 This provides:
-- Environment consistency  
-- Easy setup and deployment  
-- Service isolation  
-- Reproducibility  
+- Environment consistency
+- Easy setup and deployment
+- Service isolation
+- Reproducibility
 
 The project can be launched quickly using Docker Compose.
 
 # Why This Design Matters
 
 This architecture reflects how real-world security monitoring systems are structured:
-- Logs are streamed  
-- Events are enriched  
-- Data is indexed  
-- Dashboards provide insight  
+- Logs are streamed
+- Events are enriched
+- Data is indexed
+- Dashboards provide insight
 
 The system is modular, scalable, and designed with production-style principles in mind.
 
@@ -160,7 +160,7 @@ Index:
 ids-events
 ```
 Time field:
-``` 
+```
 @timestamp
 ```
 
@@ -168,13 +168,13 @@ Time field:
 
 - **Language:**   Python 3.10
 - **framework:**   FastAPI
-- **Streaming:**   Apache Kafka  
-- **Storage:**   Elasticsearch 8  
-- **Dashboard:** Grafana  
+- **Streaming:**   Apache Kafka
+- **Storage:**   Elasticsearch 8
+- **Dashboard:** Grafana
 - **Containerization:** Docker/Docker Compose
-- **Log Generation:** Security Log Generator  
+- **Log Generation:** Security Log Generator
 - **Threat Intelligence:** IPSUM
-  
+
 # Data Pipeline
 This section describes how security events flow through the system, from raw IDS logs to indexed documents in Elasticsearch.
 
@@ -253,7 +253,7 @@ This enables efficient querying, filtering, aggregation, and threat hunting.
 # SOC Dashboard
 ### Total IDS Events Over Time
 
-- Displays the volume of IDS events over a selected time range.  
+- Displays the volume of IDS events over a selected time range.
 - This helps detect traffic spikes or unusual activity.
 
 ### Malicious Events Count
@@ -278,13 +278,13 @@ The dashboard simulates what a Security Operations Center (SOC) analyst would us
 
 This project successfully demonstrates:
 
-- Real time ingestion of IDS logs  
-- Kafka based streaming architecture  
-- Threat intelligence enrichment using IPSum  
-- Structured indexing in Elasticsearch  
-- Real time visualization in Grafana  
-- Dockerized infrastructure setup  
-- Modular and maintainable Python codebase  
+- Real time ingestion of IDS logs
+- Kafka based streaming architecture
+- Threat intelligence enrichment using IPSum
+- Structured indexing in Elasticsearch
+- Real time visualization in Grafana
+- Dockerized infrastructure setup
+- Modular and maintainable Python codebase
 
 The pipeline processes security events end-to-end, from raw logs to visual insights.
 
@@ -292,11 +292,11 @@ The pipeline processes security events end-to-end, from raw logs to visual insig
 
 The dashboard allows analysts to:
 
-- Detect malicious IP communication in real time  
-- Identify spikes in suspicious network activity  
-- Understand which attack types are most common  
-- Monitor the severity of detected threats  
-- Prioritize events based on confidence score  
+- Detect malicious IP communication in real time
+- Identify spikes in suspicious network activity
+- Understand which attack types are most common
+- Monitor the severity of detected threats
+- Prioritize events based on confidence score
 
 It transforms raw IDS logs into actionable security intelligence.
 
@@ -306,11 +306,11 @@ The current implementation focuses on core functionality.
 
 Possible improvements include:
 
-- Real-time alerting (In email or Slack notifications)  
-- Role-based access control and authentication  
-- Kafka scaling with multiple partitions  
-- Production-grade monitoring and logging  
-- CI/CD pipeline for deployment automation  
+- Real-time alerting (In email or Slack notifications)
+- Role-based access control and authentication
+- Kafka scaling with multiple partitions
+- Production-grade monitoring and logging
+- CI/CD pipeline for deployment automation
 ## Why Did I Change the Architecture?
 ### Question:
 Before I used batch processing and DuckDB, now I am using Kafka and Elasticsearch, why?
@@ -321,7 +321,7 @@ I used batch processing with Python, DuckDB, and Streamlit. The system processed
 I redesigned the project into a real-time streaming pipeline using Kafka, Elasticsearch, and Grafana. Logs are now streamed continuously, enriched dynamically, indexed in Elasticsearch, and visualized in real time.
 
 ### Why?
-The first version helped validate the core logic  ingestion, enrichment, and analysis but it was batch-based and not real-time. 
+The first version helped validate the core logic  ingestion, enrichment, and analysis but it was batch-based and not real-time.
 In real SOC environments, security monitoring is continuous and event-driven. By moving to a streaming architecture, the system became more realistic, scalable, and aligned with production-level security systems.
 
 ## Challenges Faced
@@ -336,7 +336,7 @@ That’s why I decided to switch to Elasticsearch. The only new technology for m
 
 I learned the basics from official documentation, Medium, AI,and by discussing with people who had experience with it. I’m not perfect in Elasticsearch yet, but through this project I understood the core concepts and how to implement it properly.
 
-I wanted to challenge myself and learn something new instead of staying only with tools I already know. 
+I wanted to challenge myself and learn something new instead of staying only with tools I already know.
 
 ## Question
 
@@ -353,9 +353,14 @@ Web access logs and endpoint logs also provide useful information, but they are 
 Since the pipeline is modular and Kafka-based, additional log types (such as web or endpoint logs) can easily be integrated later without changing the overall design.
 
 
-## Dashboard Grafana 
+## Dashboard Elastic
+
+<img width="1375" height="636" alt="image" src="https://github.com/user-attachments/assets/4efef121-519d-4d75-9fd7-0c27212d365b" />
+
+## Dashboard Grafana
 
 <img width="1324" height="612" alt="image" src="https://github.com/user-attachments/assets/9e621d92-d142-4231-ab2a-02ccdedd6334" />
+
 
 I tried with the some of the malicious logs, to verify wheather its working or not.
 
