@@ -1,7 +1,5 @@
 # 🛡️ SOC Security Data Pipeline & Dashboard
 
-> **CYNA – Data Engineer Internship Technical Test**
-
 ## Overview
 
 This project simulates a Security Operations Center (SOC) data pipeline.
@@ -300,8 +298,7 @@ The dashboard allows analysts to:
 
 It transforms raw IDS logs into actionable security intelligence.
 
-# What Is Not Done Yet(This will be done during Stage in Cyna 😃)
-
+# What Is Not Done Yet
 The current implementation focuses on core functionality.
 
 Possible improvements include:
